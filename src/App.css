@@ -1,42 +1,82 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  width: 90%;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+section
+{
+  margin-block: 50px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/*S1: Header*/
+
+.logo
+{
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  gap: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.logo h1, .logo p, .logo h6
+{
+  margin: 0;
 }
 
-.card {
-  padding: 2em;
+.logo h1
+{
+  font-size: 4em;
+}
+.logo h6
+{
+  font-size: 0.8em;
+}
+.logo p
+{
+  font-size: 0.7em;
 }
 
-.read-the-docs {
-  color: #888;
+/*S2: User Ingredients*/
+
+.input-panel
+{
+  width: 60%;
+  margin: auto;
+  /*border: solid 2px red;*/
+  display: flex;
+
+}
+
+.user-ingredients-form
+{
+  position: relative;
+}
+
+.user-input
+{
+    border-radius: 8px 0px 0px 8px;
+    border: 1px solid #f9f9f9;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    transition: border-color 0.25s;
+    flex: 12;
+}
+
+.plus-btn{
+  width: 50px;
+  border-radius: 0px 8px 8px 0px;
+
+}
+
+.get-recipes-btn
+{
+  position: absolute;
+  transform: translateX(-50%);
+  bottom: 5%;
+  background-color:rgb(225, 251, 225)
 }
