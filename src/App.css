@@ -2,7 +2,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  width: 90%;
+  width: 800px;
 }
 
 
@@ -67,10 +67,48 @@ section
     flex: 12;
 }
 
-.plus-btn{
+button.plus{
   width: 50px;
   border-radius: 0px 8px 8px 0px;
 
+}
+
+/*IngredientsList*/
+
+.ingredients-list{
+  margin: 30px auto;
+  width: 45%;
+  height: 60%;
+  border-radius: 8px;
+  border: solid 1px #f9f9f9;
+  transition: 0.3s;
+  list-style-type: none;
+  padding-inline: 10px;
+
+}
+
+.ingredients-list-item
+{
+  text-align: start;
+  text-transform: capitalize;
+  text-decoration: none;
+  padding: 10px;
+  border-bottom: 1px solid #f9f9f9;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+img.cancel
+{
+  float: right;
+  width: 10px;
+  opacity: 0.3;
+  transition: 0.3s;
+}
+img.cancel:hover
+{
+  opacity: 0.8;
 }
 
 .get-recipes-btn
@@ -80,3 +118,4 @@ section
   bottom: 5%;
   background-color:rgb(225, 251, 225)
 }
+
