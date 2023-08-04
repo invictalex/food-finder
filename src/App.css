@@ -75,41 +75,63 @@ button.plus{
 
 /*IngredientsList*/
 
+@keyframes fade-out{
+  0% {opacity: 1}
+  100% {opacity: 0}
+}
+
 .ingredients-list{
   margin: 30px auto;
   width: 45%;
   height: 60%;
   border-radius: 8px;
   border: solid 1px #f9f9f9;
+  border-bottom: none;
   transition: 0.3s;
   list-style-type: none;
-  padding-inline: 10px;
+  padding: 0;
+  
 
 }
 
-.ingredients-list-item
+
+
+.ingredients-placeholder, .ingredients-list-item
 {
   text-align: start;
   text-transform: capitalize;
   text-decoration: none;
   padding: 10px;
-  border-bottom: 1px solid #f9f9f9;
+}
 
+.ingredients-list-item
+{
+  
+  border-bottom: 1px solid #f9f9f9;
   display: flex;
   justify-content: space-between;
+  transition: 0.5s;
+  
+}
+.ingredients-list-item:hover
+{
+  cursor: pointer;
+  color: black;
+  background-color: #f9f9f9;
+}
+.ingredients-list-item:hover img.cancel
+{
+  opacity: 0.6;
 }
 
 img.cancel
 {
   float: right;
   width: 10px;
-  opacity: 0.3;
+  opacity: 0;
   transition: 0.3s;
 }
-img.cancel:hover
-{
-  opacity: 0.8;
-}
+
 
 .get-recipes-btn
 {

@@ -37,6 +37,7 @@ export default function UserIngredientsSection() {
 
   const removeItem = (itemToRemove) => {
 
+    
     setUserIngredients((prevIng) => ({
 
       ...prevIng,

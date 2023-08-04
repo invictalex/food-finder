@@ -4,11 +4,12 @@ import cancel from "./assets/cancel.svg"
 export default function IngredientsList(props)
 {
 
+    
 
     const listOfIngredients = props.userList.map(item => (
-        <li key={item} className="ingredients-list-item">
+        <li key={item} className="ingredients-list-item" onClick={() => props.handleCancel(item)}>
 
-            {item}  <img className="cancel" src={cancel} onClick={() => props.handleCancel(item)}></img>
+            {item}  <img className="cancel" src={cancel}></img>
 
         </li>))
 
@@ -16,7 +17,7 @@ export default function IngredientsList(props)
 
         <ul className="ingredients-list">
             {listOfIngredients.length ? listOfIngredients : 
-            <li className="ingredients-list-item" style={{fontStyle: "italic"}}>Your ingredients</li>}
+            <li className="ingredients-placeholder" style={{fontStyle: "italic"}}>Your ingredients</li>}
         </ul>
     )
 }
