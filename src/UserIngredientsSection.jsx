@@ -8,7 +8,8 @@ export default function UserIngredientsSection() {
 
   const [userIngredients, setUserIngredients] = useState({
     input: "",
-    list: []
+    list: [],
+    notification: ""
   })
 
   const handleChange = (event) => {
@@ -25,18 +26,26 @@ export default function UserIngredientsSection() {
   {
     event.preventDefault()
 
-    setUserIngredients((prevIng) => ({
+    userIngredients.list.includes(userIngredients.input) ? 
+    
+      setUserIngredients((prevIng) => ({
+        ...prevIng,
+        input: "",
+        notification: `Oops, you've already added ${userIngredients.input}!`
+      })) :
 
-      ...prevIng,
-      list: [...prevIng.list, prevIng.input]
-    }))
+      setUserIngredients((prevIng) => ({
 
-    setUserIngredients((prevIng) => (prevIng))
+        input: "",
+        list: [...prevIng.list, prevIng.input],
+        notification: ""
+      }))
 
   }
 
   const removeItem = (itemToRemove) => {
 
+    
     setUserIngredients((prevIng) => ({
 
       ...prevIng,
@@ -60,6 +69,7 @@ export default function UserIngredientsSection() {
           <button className="plus">+</button>
         </div>
       </form>
+      <p className="notification">{userIngredients.notification}</p>
 
       <IngredientsList 
         userList={userIngredients.list} 
