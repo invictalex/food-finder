@@ -58,7 +58,7 @@ section
 .user-input
 {
     border-radius: 8px 0px 0px 8px;
-    border: 1px solid #f9f9f9;
+    border: 1px solid #e2e2e2;
     padding: 0.6em 1.2em;
     font-size: 1em;
     font-weight: 500;
@@ -70,6 +70,8 @@ section
 button.plus{
   width: 50px;
   border-radius: 0px 8px 8px 0px;
+  border: solid 1px #e2e2e2;
+  border-left: 0;
 
 }
 
@@ -82,19 +84,18 @@ button.plus{
 
 .ingredients-list{
   margin: 30px auto;
-  width: 45%;
+  width: 40%;
   height: 60%;
   border-radius: 8px;
-  border: solid 1px #f9f9f9;
-  border-bottom: none;
+  border: solid 1px #e2e2e2;
   transition: 0.3s;
   list-style-type: none;
-  padding: 0;
+  padding: 7px 15px 4px 15px;
+  overflow: hidden;
+
   
 
 }
-
-
 
 .ingredients-placeholder, .ingredients-list-item
 {
@@ -102,22 +103,43 @@ button.plus{
   text-transform: capitalize;
   text-decoration: none;
   padding: 10px;
+
+}
+
+.ingredients-list-title
+{
+  text-align: start;
+  text-transform: capitalize;
+  text-decoration: none;
+  padding: 6px 10px 6px 10px;
+  display: flex;
+  justify-content: space-between;
+  transition: color 0.3s;
+  border-bottom: 1px solid #c9c9c9;
+  font-weight: 500;
+}
+.ingredients-placeholder
+{
+  border-bottom: none;
 }
 
 .ingredients-list-item
 {
   
-  border-bottom: 1px solid #f9f9f9;
+  border-bottom: 1px solid #e2e2e2;
   display: flex;
   justify-content: space-between;
-  transition: 0.5s;
+  transition: opacity 0.3s;
   
+}
+.ingredients-list-item:last-of-type
+{
+  border-bottom: none;
 }
 .ingredients-list-item:hover
 {
   cursor: pointer;
-  color: black;
-  background-color: #f9f9f9;
+  opacity: 0.6;
 }
 .ingredients-list-item:hover img.cancel
 {
@@ -141,3 +163,19 @@ img.cancel
   background-color:rgb(225, 251, 225)
 }
 
+
+input::placeholder, .ingredients-placeholder
+{
+  opacity: 0.5;
+  font-weight: 300;
+}
+
+p.notification
+{
+  margin: 0;
+  height: 20px;
+  font-size: 0.9em;
+  color:crimson;
+  padding-top: 8px;
+
+}
