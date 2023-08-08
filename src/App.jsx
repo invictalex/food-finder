@@ -14,7 +14,7 @@ function App() {
 
   const [count, setCount] = useState(0)
 
-  const [recipes, setRecipes] = useState([])
+  const [recipeData, setRecipeData] = useState([])
 
   function increaseCount(){
     setCount(prevCount => prevCount + 1)
@@ -26,13 +26,14 @@ function App() {
       const res = await fetch(`https://api.edamam.com/search?q=${userIngredients.list.join("%20")}&app_id=a43adf9a&app_key=58027ed3fbd0a331338139572c0b20a1`)
       const data = await res.json()
 
-      setRecipes(data.hits[0].recipe.label)
+      setRecipeData(data.hits)
     }
 
     getData()
 
   }, [count])
 
+  console.log(recipeData)
   
   const handleChange = (event) => {
     
@@ -86,7 +87,7 @@ function App() {
 
       <Recipes
         onSubmit={increaseCount}
-        recipeTitle={recipes}
+        data={recipeData}
       />
 
     </>
