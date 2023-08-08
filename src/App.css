@@ -46,21 +46,21 @@ section
 
 /*S2: User Ingredients*/
 
-.input-panel
-{
-  width: 60%;
-  margin: auto;
-  /*border: solid 2px red;*/
-  display: flex;
 
-}
 
 .user-ingredients-form
 {
   position: relative;
+  display: flex;
+  justify-content: center;
+}
+.input-panel
+{
+  display: flex;
+
 }
 
-.user-input
+.input-field
 {
     border-radius: 8px 0px 0px 8px;
     border: 1px solid #e2e2e2;
@@ -88,14 +88,15 @@ button.plus{
 }
 
 .ingredients-list{
-  margin: 30px auto;
+  margin: auto;
+  margin-top: 30px;
   width: 40%;
   height: 60%;
   border-radius: 8px;
   border: solid 1px #e2e2e2;
   transition: 0.3s;
   list-style-type: none;
-  padding: 7px 15px 4px 15px;
+  padding: 7px 15px 0px 15px;
   overflow: hidden;
 
   
@@ -159,13 +160,33 @@ img.cancel
   transition: 0.3s;
 }
 
-
-.get-recipes-btn
+.button-container
 {
-  position: absolute;
-  transform: translateX(-50%);
-  bottom: 5%;
-  background-color:rgb(225, 251, 225)
+  width: calc(40% + 30px);
+  margin: auto;
+}
+
+
+button.get-recipes{
+  float: right;
+  border-radius: 32px;
+  padding: 5px 10px 7px 10px;
+  background-color: #756382bd;
+  color: white;
+  font-weight: 400;
+  margin-block: 8px;
+}
+
+button.get-recipes:disabled, button.get-recipes[disabled]{
+  background-color: #e2e2e2;
+  color: black;
+  opacity: 0.3;
+  cursor:default;
+
+
+}
+button.get-recipes:disabled:hover, button.get-recipes[disabled]:hover{
+  border: solid 1px #e2e2e2;
 }
 
 
@@ -182,6 +203,7 @@ p.notification
   font-size: 0.9em;
   color:crimson;
   padding-top: 8px;
+  font-weight: 500;
 
 }
 
@@ -230,21 +252,23 @@ p.notification
   text-align: left;
 
   position: relative;
-  margin: 10px;
-  
+  padding: 10px;
+  justify-content: space-between;
+  height: calc(100% - 150px);
 }
+  
 
 .recipe-card-tags
 {
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 10px;
+  top: 10px;
   display: flex;
   gap: 8px;
 }
 
 .recipe-card-course, .recipe-card-cuisine{
-  background: black;
+  background: #919191;
   color: white;
   padding: 0px 8px 2px 8px;
   border-radius: 10px;
@@ -254,7 +278,7 @@ p.notification
 .recipe-card-title{
   margin-top: 36px;
   text-transform: uppercase;
-  font-size: 2em;
+  font-size: 1.9em;
   line-height: 1em;
   margin-bottom: 10px;
 }
@@ -269,8 +293,8 @@ p.notification
   position: absolute;
   text-decoration: underline;
   font-weight:bold;
-  right: 0;
-  bottom: 0;
+  right: 10px;
+  bottom: 10px;
 }
 .recipe-card-expand-button:hover{
   cursor: pointer;

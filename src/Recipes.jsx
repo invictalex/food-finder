@@ -8,28 +8,28 @@ export default function Recipes(props) {
 
   const recipeCards = props.data.map((data, index) => {
 
-    let recipe = data.recipe
-    const {label, image, ingredients, cuisineType} = recipe
+    const {label, image, ingredients, cuisineType, dishType} = data.recipe
 
-    console.log(placeholder)
+    const dishTypeCol = {backgroundColor: dishType[0] === "starter" ? "#91ba96" : dishType[0] === "main course" ? "#173f4e" : "#756382"}
+
 
     return (
     
     <div className="recipe-card-container" key={index}>
 
       <div className="recipe-card">
-        <div className="recipe-card-image" style={{backgroundImage: `url(${placeholder})`}}>
+        <div className="recipe-card-image" style={{backgroundImage: `url(${image})`}}>
 
         </div>
         <div className="recipe-card-info">
           <div className="recipe-card-tags">
-            <div className="recipe-card-course">main</div>
-            <div className="recipe-card-cuisine">french</div>
+            <div className="recipe-card-course" style={dishTypeCol}>{dishType}</div>
+            <div className="recipe-card-cuisine">{cuisineType}</div>
           </div>
           
-          <h2 className="recipe-card-title">This is the title</h2>
+          <h2 className="recipe-card-title">{label}</h2>
           <div className="recipe-card-ingredients-counter">
-            <p>You have 5/7 ingredients</p>
+            <p>You have {props.userIngredients}/{ingredients.length} ingredients</p>
           </div>  
           <div className="recipe-card-expand-button">Cook</div>
         </div>
@@ -41,12 +41,8 @@ export default function Recipes(props) {
 })
 
     return (
-        <section>
-          <button className="get-recipes-btn" onClick={props.onSubmit}>Get Recipes<img src={downArrow} style={{width: "25px", display: "block", margin: "auto"}} /></button>
-        <div className="recipe-card-section">
+        <section className="recipe-card-section">
           {recipeCards}
-        </div>
-        
         </section>
           
       )

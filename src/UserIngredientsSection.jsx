@@ -13,12 +13,12 @@ export default function UserIngredientsSection(props) {
   
   return (
     <section >
-      <form className="user-ingredients-form" onSubmit={props.onSubmit}>
+      <form className="user-ingredients-form" onSubmit={props.onAdd}>
         <div className="input-panel">
           <input type="text"
             name="userInput"
             value={userIngredients.input}
-            className="user-input"
+            className="input-field"
             placeholder="spaghetti"
             onChange={props.onChange}
           />
@@ -28,7 +28,8 @@ export default function UserIngredientsSection(props) {
       <p className="notification">{userIngredients.notification}</p>
 
       <IngredientsList 
-        userList={userIngredients.list} 
+        list={userIngredients.list} 
+        onSubmit={props.onSubmit}
         onCancel={props.onCancel}
       />
 

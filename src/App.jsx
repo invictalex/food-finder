@@ -44,7 +44,7 @@ function App() {
     )
   }
 
-  const handleSubmit = (event) =>
+  const handleAdd = (event) =>
   {
     event.preventDefault()
 
@@ -81,12 +81,13 @@ function App() {
       <UserIngredientsSection 
         data={userIngredients}
         onChange={handleChange}
-        onSubmit={handleSubmit}
+        onAdd={handleAdd}
         onCancel={removeItem}
+        onSubmit={increaseCount}
       />
 
       <Recipes
-        onSubmit={increaseCount}
+        userIngredients={userIngredients.list.length}
         data={recipeData}
       />
 
