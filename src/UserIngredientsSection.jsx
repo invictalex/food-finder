@@ -3,68 +3,24 @@ import downArrow from "./assets/down-arrow.svg"
 import IngredientsList from "./IngredientsList.jsx"
 
 
-export default function UserIngredientsSection() {
+export default function UserIngredientsSection(props) {
 
 
-  const [userIngredients, setUserIngredients] = useState({
-    input: "",
-    list: [],
-    notification: ""
-  })
-
-  const handleChange = (event) => {
-    
-    setUserIngredients((prevIng) => ({
-        ...prevIng,
-        input: event.target.value
-      })
-    )
-  }
+  const userIngredients = props.data
 
 
-  const handleSubmit = (event) =>
-  {
-    event.preventDefault()
-
-    userIngredients.list.includes(userIngredients.input) ? 
-    
-      setUserIngredients((prevIng) => ({
-        ...prevIng,
-        input: "",
-        notification: `Oops, you've already added ${userIngredients.input}!`
-      })) :
-
-      setUserIngredients((prevIng) => ({
-
-        input: "",
-        list: [...prevIng.list, prevIng.input],
-        notification: ""
-      }))
-
-  }
-
-  const removeItem = (itemToRemove) => {
-
-    
-    setUserIngredients((prevIng) => ({
-
-      ...prevIng,
-      list: prevIng.list.filter(item => item !== itemToRemove)     
-
-    }))
-  }
 
   
   return (
     <section >
-      <form className="user-ingredients-form" onSubmit={handleSubmit}>
+      <form className="user-ingredients-form" onSubmit={props.onSubmit}>
         <div className="input-panel">
           <input type="text"
             name="userInput"
             value={userIngredients.input}
             className="user-input"
             placeholder="spaghetti"
-            onChange={handleChange}
+            onChange={props.onChange}
           />
           <button className="plus">+</button>
         </div>
@@ -73,11 +29,10 @@ export default function UserIngredientsSection() {
 
       <IngredientsList 
         userList={userIngredients.list} 
-        handleCancel={removeItem}
+        onCancel={props.onCancel}
       />
 
 
-      <button className="get-recipes-btn">Get Recipes<img src={downArrow} style={{width: "25px", display: "block", margin: "auto"}} /></button>
     </section>
   
   

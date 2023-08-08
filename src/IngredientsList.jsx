@@ -10,7 +10,7 @@ import {
 export default function IngredientsList(props)
 {
     const listOfIngredients = props.userList.map(item => (
-        <li key={item} className="ingredients-list-item" onClick={() => props.handleCancel(item)}>
+        <li key={item} className="ingredients-list-item" onClick={() => props.onCancel(item)}>
 
             {item}  <img className="cancel" src={cancel}></img>
 
