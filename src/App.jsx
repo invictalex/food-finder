@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import Header from "./Header.jsx"
-import UserIngredientsSection from "./UserIngredientsSection.jsx"
-import Recipes from "./Recipes.jsx"
+import IngredientsSection from "./IngredientsSection.jsx"
+import RecipesSection from "./RecipesSection.jsx"
 import './App.css'
 
 function App() {
@@ -9,7 +9,6 @@ function App() {
   const [userIngredients, setUserIngredients] = useState({
     input: "",
     list: [],
-    notification: ""
   })
 
   const [count, setCount] = useState(0)
@@ -48,12 +47,11 @@ function App() {
   {
     event.preventDefault()
 
-    userIngredients.list.includes(userIngredients.input) ? 
+    userIngredients.list.includes(userIngredients.input) || userIngredients.input === "" ? 
     
       setUserIngredients((prevIng) => ({
         ...prevIng,
         input: "",
-        notification: `Oops, you've already added ${userIngredients.input}!`
       })) :
 
       setUserIngredients((prevIng) => ({
@@ -77,16 +75,19 @@ function App() {
 
   return (
     <>
-      <Header />
-      <UserIngredientsSection 
+      <Header 
+        display={userIngredients.list.length}
+      />
+      <IngredientsSection 
         data={userIngredients}
         onChange={handleChange}
         onAdd={handleAdd}
         onCancel={removeItem}
         onSubmit={increaseCount}
+        list={userIngredients.list} 
       />
 
-      <Recipes
+      <RecipesSection
         userIngredients={userIngredients.list.length}
         data={recipeData}
       />

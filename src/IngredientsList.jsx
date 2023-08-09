@@ -1,7 +1,6 @@
 import React from "react"
 import cancel from "./assets/cancel.svg"
-import rightArrow from "./assets/right-arrow.svg"
-import rightArrowDisabled from "./assets/right-arrow-grey.svg"
+
   
 
 export default function IngredientsList(props)
@@ -18,7 +17,7 @@ export default function IngredientsList(props)
 
     return(
 
-        <>
+        <section style={{display: props.list.length? "block" : "none"}}>
         <ul className="ingredients-list">
             <li className="ingredients-list-title">Your ingredients</li>
 
@@ -26,13 +25,8 @@ export default function IngredientsList(props)
 
             
         </ul>
-        <div className="button-container">
-        <button className="get-recipes" onClick={props.onSubmit} disabled={!props.list.length}>Get Recipes
-                <img src={props.list.length ? rightArrow : rightArrowDisabled} className="right-arrow" style={{paddingLeft: "5px", width: "10px"}}></img>
-        </button>
-        </div>
        
-        </>
+        </section>
         
         
     )

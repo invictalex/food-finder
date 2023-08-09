@@ -1,13 +1,20 @@
 import { useState } from 'react'
 
-export default function Header() {
+export default function Header(props) {
     return (
-        <div className="logo">
-          <h1>MealMaker</h1>
-          <h6>Find recipes using food already in your fridge.</h6>
-          <p>By <a href="https://www.github.com/invictalex">invictalex</a></p>
-        </div>
-    
+        
+        <>
+        <header>
+          <h1>Meal<span>Maker</span></h1>
+          <p>An app developed by <a href="https://www.github.com/invictalex">invictalex</a>.</p>
+        </header>
+        
+        <section style={{display: props.display ? "none" : "block"}}>
+          <h2 className="tagline">Let us know what ingredients you've got, and we'll take it from there.</h2>
+        </section>
+        
+        
+        </>
     
           
       )
