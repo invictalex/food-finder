@@ -15,7 +15,7 @@ export default function Recipes(props) {
 
     return (
     
-    <div className="recipe-card-container" key={index}>
+    <div className="recipe-card-container" ref={props.myRef} key={index}>
 
       <div className="recipe-card">
         <div className="recipe-card-image" style={{backgroundImage: `url(${image})`}}>
@@ -41,7 +41,7 @@ export default function Recipes(props) {
 })
 
     return (
-        <section className="recipe-card-section">
+        <section className="recipes-section">
           {recipeCards}
         </section>
           

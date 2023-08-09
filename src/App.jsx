@@ -1,7 +1,9 @@
 import {useEffect, useState} from 'react'
 import Header from "./Header.jsx"
 import IngredientsSection from "./IngredientsSection.jsx"
+import GetRecipesBtn from './GetRecipesBtn.jsx'
 import RecipesSection from "./RecipesSection.jsx"
+import ScrollButton from './ScrollButton.jsx'
 import './App.css'
 
 function App() {
@@ -11,11 +13,14 @@ function App() {
     list: [],
   })
 
+  const hasInput = userIngredients.list.length
+
   const [count, setCount] = useState(0)
 
   const [recipeData, setRecipeData] = useState([])
 
-  function increaseCount(){
+  function getRecipes(){
+
     setCount(prevCount => prevCount + 1)
   }
 
@@ -32,7 +37,6 @@ function App() {
 
   }, [count])
 
-  console.log(recipeData)
   
   const handleChange = (event) => {
     
@@ -76,19 +80,28 @@ function App() {
   return (
     <>
       <Header 
-        display={userIngredients.list.length}
+        display={hasInput}
       />
       <IngredientsSection 
         data={userIngredients}
         onChange={handleChange}
         onAdd={handleAdd}
         onCancel={removeItem}
-        onSubmit={increaseCount}
         list={userIngredients.list} 
+
+        display={hasInput}
       />
 
+      <GetRecipesBtn
+        onSubmit={getRecipes}
+        list={userIngredients.list} 
+
+      />
+
+      <ScrollButton />
+
       <RecipesSection
-        userIngredients={userIngredients.list.length}
+        userIngredients={hasInput}
         data={recipeData}
       />
 

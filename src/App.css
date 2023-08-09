@@ -2,16 +2,23 @@
   margin: 0 auto;
   text-align: center;
   width: 800px;
+  position: relative;
 }
 
 *{
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
+}
+
+button{
+  padding: 0;
 }
 
 
 section
 {
+  max-width: 100vw;
   margin-block: 50px;
 }
 
@@ -22,7 +29,7 @@ header
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  padding: 15px;
+  margin: 15px;
   align-items: end;
 }
 
@@ -45,32 +52,28 @@ header p
   text-align: right;
   font-size: 0.8em;
   width: 25%;
+  max-width: 80px;
   margin-bottom: -5px;
 }
 
 h2.tagline{
-  font-size: 3em;
-  line-height: 55px;
-  text-align: start;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2em;
+  line-height: 35px;
   padding-inline: 15px;
 }
 
 /*S2: User Ingredients*/
 
 
-
-.user-ingredients-form
-{
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-.input-panel
+.ingredients-form
 {
   display: flex;
   justify-content: center;
-
-
+  margin: auto;
+  max-width: 94%;
 }
 
 .input-field
@@ -82,11 +85,12 @@ h2.tagline{
     font-weight: 500;
     font-family: inherit;
     transition: border-color 0.25s;
-    max-width: 80%;
+    min-width:45%;
+    width: 500px;
 }
 
 button.plus{
-  width: 50px;
+  min-width: 50px;
   border-radius: 0px 18px 18px 0px;
   border: solid 1px #e2e2e2;
   border-left: 0;
@@ -101,14 +105,17 @@ button.plus{
 }
 
 .ingredients-list{
+  
   border-radius: 8px;
   border: solid 1px #e2e2e2;
   transition: 0.3s;
   list-style-type: none;
   padding: 7px 15px 0px 15px;
-
-  
-
+  box-sizing: border-box;
+  width: 90%;
+  max-width: 635px;
+  margin: auto;
+  margin-top: 40px;
 }
 
 .ingredients-placeholder, .ingredients-list-item
@@ -122,6 +129,7 @@ button.plus{
 
 .ingredients-list-title
 {
+  font-size: 1.5em;
   text-align: start;
   text-transform: capitalize;
   text-decoration: none;
@@ -132,14 +140,10 @@ button.plus{
   border-bottom: 1px solid #c9c9c9;
   font-weight: 500;
 }
-.ingredients-placeholder
-{
-  border-bottom: none;
-}
 
 .ingredients-list-item
 {
-  
+  font-size: 1.4em;
   border-bottom: 1px solid #e2e2e2;
   display: flex;
   justify-content: space-between;
@@ -163,21 +167,29 @@ button.plus{
 img.cancel
 {
   float: right;
-  width: 10px;
+  width: 14px;
   opacity: 0;
   transition: 0.3s;
 }
 
+.get-recipes-container{
+  width: 100%;
+  max-width: 635px;
+  margin: auto;
+  position: relative;
+}
+
+
+
 button.get-recipes{
-  position: absolute;
-  bottom: 30px;
-  right: 15px;
+  font-size: 1.5em;
   border-radius: 32px;
   padding: 5px 10px 7px 10px;
-  background-color: #756382bd;
+  background-color: #1987ff;
   color: white;
   font-weight: 400;
-  margin-block: 8px;
+  float: right;
+  margin-top: -30px;
 }
 
 button.get-recipes:disabled, button.get-recipes[disabled]{
@@ -192,6 +204,10 @@ button.get-recipes:disabled:hover, button.get-recipes[disabled]:hover{
   border: solid 1px #e2e2e2;
 }
 
+.right-arrow{
+  padding-left: 5px;
+  width: 20px
+}
 
 input::placeholder, .ingredients-placeholder
 {
@@ -214,11 +230,13 @@ p.notification
 /* RECIPE CARD */
 
 
-.recipe-card-section{
+.recipes-section{
+  
   display: flex;
   flex-wrap: wrap;
   width: 80%;
   margin: auto;
+  padding-top: 50px;
 
 }
 
@@ -227,15 +245,25 @@ p.notification
   display: flex;
   justify-content: center;
   margin-bottom: 60px;
-
 }
+
+
 
 .recipe-card{
   width: 80%;
   border-radius: 8px;
   border: solid 1px #c9c9c9;
+}
 
+@media (max-width: 710px)
+{
+  .recipe-card-container{
+    width: 100%
+  }
 
+    .recipe-card{
+      width: 250px
+    }
 }
 
 .recipe-card-image
@@ -301,4 +329,35 @@ p.notification
 }
 .recipe-card-expand-button:hover{
   cursor: pointer;
+}
+
+
+.scroll-btn
+{
+  position: fixed;
+  bottom: 30px;
+  right: 15px;
+  z-index: 100;
+
+  width: 70px;
+  height: 70px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: #1987ff;
+
+  transition: 0.3s;
+}
+img.up-arrow
+{
+  width: 20px;
+  margin: auto;
+}
+.scroll-btn-container{
+  position: fixed;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 100%;
+  max-width: 850px;
+  margin: auto;
 }

@@ -17,16 +17,11 @@ export default function IngredientsList(props)
 
     return(
 
-        <section style={{display: props.list.length? "block" : "none"}}>
-        <ul className="ingredients-list">
+        <ul className="ingredients-list" style={{display: props.list.length? "block" : "none"}}>
             <li className="ingredients-list-title">Your ingredients</li>
-
             {listOfIngredients} 
-
-            
         </ul>
        
-        </section>
         
         
     )

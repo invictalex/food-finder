@@ -1,8 +1,7 @@
 import {useState} from 'react'
 import downArrow from "./assets/down-arrow.svg"
 import IngredientsList from "./IngredientsList.jsx"
-import rightArrow from "./assets/right-arrow.svg"
-import rightArrowDisabled from "./assets/right-arrow-grey.svg"
+
 
 
 export default function UserIngredientsSection(props) {
@@ -10,12 +9,17 @@ export default function UserIngredientsSection(props) {
 
   const userIngredients = props.data
 
+  const positionAbsolute = {
+    position: "absolute",
+    left: "50%",
+    bottom: "0",
+    transform: "translateX(-50%)"
+  }
+
 
   return (
-    <>
-    <section>
-      <form className="user-ingredients-form" onSubmit={props.onAdd}>
-        <div className="input-panel">
+    <section className="ingredients-section" style={!props.display ? positionAbsolute : {}}>
+      <form className="ingredients-form" onSubmit={props.onAdd}>
           <input type="text"
             name="userInput"
             value={userIngredients.input}
@@ -24,31 +28,17 @@ export default function UserIngredientsSection(props) {
             onChange={props.onChange}
           />
           <button className="plus">+</button>
-        </div>
       </form>
-    </section>
 
-    <section>
       <IngredientsList
         list={userIngredients.list} 
         onSubmit={props.onSubmit}
         onCancel={props.onCancel}
       />
+
+      
+
     </section>
-
-    <button 
-      className="get-recipes" 
-      onClick={props.onSubmit} 
-      disabled={!true}
-      style={{display: props.list.length ? "inline-block" : "none"}}
-      >
-        Get Recipes
-      <img src={props.list.length ? rightArrow : rightArrowDisabled} className="right-arrow" style={{paddingLeft: "5px", width: "10px"}}></img>
-    </button>
-
-    </>
-  
-  
         
   )
 }
