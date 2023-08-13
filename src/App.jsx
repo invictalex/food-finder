@@ -1,12 +1,17 @@
 import {useEffect, useState} from 'react'
 import Header from "./Header.jsx"
-import IngredientsSection from "./IngredientsSection.jsx"
-import GetRecipesBtn from './GetRecipesBtn.jsx'
-import RecipesSection from "./RecipesSection.jsx"
+import Welcome from "./Welcome.jsx"
+import Ingredients from "./Ingredients.jsx"
+
+import Recipes from "./Recipes.jsx"
 import ScrollButton from './ScrollButton.jsx'
 import './App.css'
 
+import { Routes, Route, useLocation} from "react-router-dom"
+
 function App() {
+
+  const location = useLocation();
 
   const [userIngredients, setUserIngredients] = useState({
     input: "",
@@ -31,6 +36,8 @@ function App() {
       const data = await res.json()
 
       setRecipeData(data.hits)
+
+      console.log(data.hits)
     }
 
     getData()
@@ -79,31 +86,31 @@ function App() {
 
   return (
     <>
-      <Header 
-        display={hasInput}
-      />
-      <IngredientsSection 
-        data={userIngredients}
-        onChange={handleChange}
-        onAdd={handleAdd}
-        onCancel={removeItem}
-        list={userIngredients.list} 
+      <Header />
+      <Routes location={location} key={location.pathname}>
+        
+        <Route index element={<Welcome />} />
+        
+        <Route path="/ingredients" element={
+          <Ingredients 
+            data={userIngredients}
+            onChange={handleChange}
+            onAdd={handleAdd}
+            onCancel={removeItem}
+            list={userIngredients.list} 
+            onSubmit={getRecipes}
+            display={hasInput}
+          />} 
+        />
+        
+        <Route path="/recipes" element={
+          <Recipes
+            userIngredients={hasInput}
+            data={recipeData}
+          />} 
+        />
 
-        display={hasInput}
-      />
-
-      <GetRecipesBtn
-        onSubmit={getRecipes}
-        list={userIngredients.list} 
-
-      />
-
-      <ScrollButton />
-
-      <RecipesSection
-        userIngredients={hasInput}
-        data={recipeData}
-      />
+      </Routes>
 
     </>
   )

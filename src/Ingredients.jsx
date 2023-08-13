@@ -1,24 +1,23 @@
 import {useState} from 'react'
 import downArrow from "./assets/down-arrow.svg"
 import IngredientsList from "./IngredientsList.jsx"
+import GetRecipesButton from './GetRecipesButton.jsx'
+import {Link} from "react-router-dom"
 
 
 
-export default function UserIngredientsSection(props) {
+export default function Ingredients(props) {
 
 
   const userIngredients = props.data
 
-  const positionAbsolute = {
-    position: "absolute",
-    left: "50%",
-    bottom: "0",
-    transform: "translateX(-50%)"
-  }
-
 
   return (
-    <section className="ingredients-section" style={!props.display ? positionAbsolute : {}}>
+    <section className="ingredients">
+      <div className="back-home">
+        <button><Link to="/"><span>&#60;</span>Back</Link></button>
+      </div>
+     
       <form className="ingredients-form" onSubmit={props.onAdd}>
           <input type="text"
             name="userInput"
@@ -34,6 +33,12 @@ export default function UserIngredientsSection(props) {
         list={userIngredients.list} 
         onSubmit={props.onSubmit}
         onCancel={props.onCancel}
+      />
+
+      <GetRecipesButton
+        onSubmit={props.onSubmit}
+        hasList={userIngredients.list.length} 
+
       />
 
       
