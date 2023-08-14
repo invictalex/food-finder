@@ -3,10 +3,33 @@ import downArrow from "./assets/down-arrow.svg"
 import leftArrow from "./assets/right-arrow.svg"
 import placeholder from "./assets/placeholder.jpg"
 import {Link} from "react-router-dom"
+import { motion } from "framer-motion";
 
 
 
 export default function Recipes(props) {
+
+  const direction = props.direction
+  
+  const variants = {
+    enter: (direction) => {
+      return {
+        x: direction > 0 ? 1000 : -1000,
+        opacity: 0
+      };
+    },
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction) => {
+      return {
+        x: direction < 0 ? 1000 : -1000,
+        opacity: 0
+      };
+    },
+    transition: 0.3
+  }
 
 
   const recipeCards = props.data.map((data, index) => {
@@ -37,15 +60,24 @@ export default function Recipes(props) {
 })
 
     return (
-        <section className="recipes">
-          <button className="return-ingredients"><Link to="/ingredients"><img className="left-arrow" src={leftArrow}></img></Link></button>
+        <motion.section className="recipes"
+          custom={direction} 
+          variants={variants}
+
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition="transition"
+        
+        >
+          <button className="return-ingredients" onClick={props.goBack}><Link to="/ingredients"><img className="left-arrow" src={leftArrow}></img></Link></button>
           <div className="recipe-cards container-fluid">
             <div className="row">
               {recipeCards}
             </div>
             
           </div>
-        </section>
+        </motion.section>
           
       )
 }

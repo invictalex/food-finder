@@ -4,12 +4,22 @@ import Welcome from "./Welcome.jsx"
 import Ingredients from "./Ingredients.jsx"
 
 import Recipes from "./Recipes.jsx"
-import ScrollButton from './ScrollButton.jsx'
 import './App.css'
 
 import { Routes, Route, useLocation} from "react-router-dom"
+import { AnimatePresence } from "framer-motion"
+
+
 
 function App() {
+  
+  
+  const [direction, setPage] = useState(0)
+
+  const paginate = (newDirection) => setPage(newDirection);
+
+
+  
 
   const location = useLocation();
 
@@ -25,6 +35,8 @@ function App() {
   const [recipeData, setRecipeData] = useState([])
 
   function getRecipes(){
+
+    paginate(1)
 
     setCount(prevCount => prevCount + 1)
   }
@@ -68,8 +80,7 @@ function App() {
       setUserIngredients((prevIng) => ({
 
         input: "",
-        list: [...prevIng.list, prevIng.input],
-        notification: ""
+        list: [...prevIng.list, prevIng.input]
       }))
 
   }
@@ -87,31 +98,47 @@ function App() {
   return (
     <>
       <Header />
-      <Routes location={location} key={location.pathname}>
-        
-        <Route index element={<Welcome />} />
-        
-        <Route path="/ingredients" element={
-          <Ingredients 
-            data={userIngredients}
-            onChange={handleChange}
-            onAdd={handleAdd}
-            onCancel={removeItem}
-            list={userIngredients.list} 
-            onSubmit={getRecipes}
-            display={hasInput}
-          />} 
-        />
-        
-        <Route path="/recipes" element={
-          <Recipes
-            userIngredients={hasInput}
-            data={recipeData}
-          />} 
-        />
+      <AnimatePresence wait initial={false} custom={direction}>
+        <Routes location={location} key={location.pathname}>
+          
+          <Route index element={
+          <Welcome 
+            direction={direction}
+            getStarted={() => paginate(1)}
 
-      </Routes>
+          />} />
+          
+          <Route path="/ingredients" element={
+            <Ingredients 
+              data={userIngredients}
+              onChange={handleChange}
+              onAdd={handleAdd}
+              onCancel={removeItem}
+              list={userIngredients.list} 
+              
+              display={hasInput}
 
+              onSubmit={getRecipes}
+
+              direction={direction}
+              goBack={() => paginate(-1)}
+
+            />} 
+          />
+          
+          <Route path="/recipes" element={
+            <Recipes
+              userIngredients={hasInput}
+              data={recipeData}
+
+              direction={direction}
+              goBack={() => paginate(-1)}
+
+            />} 
+          />
+
+        </Routes>
+      </AnimatePresence>
     </>
   )
 }
