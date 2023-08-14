@@ -134,24 +134,34 @@ section.ingredients{
   height: calc(90vh - var(--header-height))
 }
 
-.back-home{
-  width: 550px;
-  margin: auto;
-  text-align: start;
-}
 
 .back-home button{
-  background: none;
-  padding: 0 5px 0 15px;
+  transition: 0.3s;
+  position: fixed;
+  bottom: 30px;
+  margin-left: -400px;
+  border-radius: 32px;
+  padding: 8px;
+  border: solid 1px var(--green);
+  background: white;
+  color: white;
+  font-weight: 400;
 }
 
-.back-home button a{
-  color: gray;
+.back-home button .left-arrow
+{
+  rotate: 180deg;
+  width: 20px;
+  margin-right: 2px;
 }
 
-.back-home button a:hover{
-  text-decoration: none;
+@media (max-width: 815px){
+  .back-home button{
+  margin-left: 0;
+  left: 15px;
 }
+}
+
 
 @media (max-width: 565px)
 {
@@ -306,6 +316,7 @@ button.get-recipes:disabled, button.get-recipes[disabled]{
 }
 button.get-recipes:disabled:hover, button.get-recipes[disabled]:hover{
   border: solid 1px #e2e2e2;
+  transform:none;
 }
 
 img.right-arrow{
@@ -332,9 +343,8 @@ button.return-ingredients{
   position: fixed;
   bottom: 30px;
   margin-left: -400px;
-  font-size: 1.5em;
   border-radius: 32px;
-  padding: 5px 10px 7px 10px;
+  padding: 8px;
   background-color: var(--green);
   color: white;
   font-weight: 400;

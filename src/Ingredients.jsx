@@ -4,6 +4,8 @@ import IngredientsList from "./IngredientsList.jsx"
 import GetRecipesButton from './GetRecipesButton.jsx'
 import {Link} from "react-router-dom"
 import { motion } from "framer-motion";
+import leftArrow from "./assets/right-arrow-green.svg"
+
 
 
 
@@ -30,7 +32,7 @@ export default function Ingredients(props) {
       
       >
         <div className="back-home">
-          <button onClick={props.goBack}><Link to="/"><span>&#60;</span>Back</Link></button>
+          <Link to="/"><button onClick={props.goBack}><img className="left-arrow" src={leftArrow}></img></button></Link>
         </div>
       
         <form className="ingredients-form" onSubmit={props.onAdd}>
