@@ -130,7 +130,7 @@ background: var(--green);
 
 
 section.ingredients{
-  padding-top: 10vh;
+  margin-top: 10vh;
   height: calc(90vh - var(--header-height))
 }
 

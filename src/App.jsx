@@ -18,6 +18,26 @@ function App() {
 
   const paginate = (newDirection) => setPage(newDirection);
 
+  const variants = {
+    enter: (direction) => {
+      return {
+        x: direction > 0 ? 1000 : -1000,
+        opacity: 0
+      };
+    },
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction) => {
+      return {
+        x: direction < 0 ? 1000 : -1000,
+        opacity: 0
+      };
+    },
+    transition: 0.3
+  }
+
 
   
 
@@ -105,6 +125,8 @@ function App() {
           <Welcome 
             direction={direction}
             getStarted={() => paginate(1)}
+            variants={variants}
+
 
           />} />
           
@@ -121,6 +143,7 @@ function App() {
               onSubmit={getRecipes}
 
               direction={direction}
+              variants={variants}
               goBack={() => paginate(-1)}
 
             />} 
@@ -132,6 +155,7 @@ function App() {
               data={recipeData}
 
               direction={direction}
+              variants={variants}
               goBack={() => paginate(-1)}
 
             />} 

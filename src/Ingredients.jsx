@@ -12,27 +12,9 @@ export default function Ingredients(props) {
 
   const userIngredients = props.data
 
-  const direction = props.direction
+  const { direction, variants } = props
   
-  const variants = {
-    enter: (direction) => {
-      return {
-        x: direction > 0 ? 1000 : -1000,
-        opacity: 0
-      };
-    },
-    center: {
-      x: 0,
-      opacity: 1
-    },
-    exit: (direction) => {
-      return {
-        x: direction < 0 ? 1000 : -1000,
-        opacity: 0
-      };
-    },
-    transition: 0.3
-  }
+ 
 
   return (
 
