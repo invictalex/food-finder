@@ -4,44 +4,77 @@ import leftArrow from "./assets/right-arrow.svg"
 import placeholder from "./assets/placeholder.jpg"
 import {Link} from "react-router-dom"
 import { motion } from "framer-motion";
+import RecipeModal from "./RecipeModal.jsx"
 
 
 
 export default function Recipes(props) {
 
-  const { direction, variants } = props
+
+  const { direction, variants, data } = props
+
+
+  const [displayData,setDisplayData] = useState((window.localStorage.getItem("stored-recipes")))
+
+
+  console.log(displayData)
   
+  const [modalData, setModalData] = useState({
+    visible: false,
+    title: "",
+    image: "",
+    url: "",
+    ingredientLines: [],
+    calories: "",
+  })
+
+  const hideModal = () =>{
+    setModalData((prevData) =>({
+      ...prevData,
+      visible: false
+    }))
+  }
+
+ 
 
 
+  const recipeCards = data.map((data, index) => {
 
-  const recipeCards = props.data.map((data, index) => {
+    const {label, image, ingredients, cuisineType, dishType, ingredientLines, calories, url} = data.recipe
 
-  const {label, image, ingredients, cuisineType, dishType} = data.recipe
-
-  const dishTypeCol = {backgroundColor: dishType[0] === "starter" ? "#91ba96" : dishType[0] === "main course" ? "#173f4e" : "#756382"}
-
-
-    return (
+    const dishTypeCol = {backgroundColor: dishType[0] === "starter" ? "#91ba96" : dishType[0] === "main course" ? "#173f4e" : "#756382"}
     
-    <div className="recipe-card-tile col-xs-6 col-sm-6 col-md-4 col-lg-3" ref={props.myRef} key={index}>
+    const showModal = () => {
+        setModalData({
+          visible: true,
+          title: label,
+          image: image,
+          url: url,
+          ingredientLines: ingredientLines,
+          calories: calories,
+        })
+      }
+    
+      
 
-      <div className="recipe-card">
-        <div className="recipe-card-image" style={{backgroundImage: `url(${image})`}}>
-          <div className="recipe-card-course" style={dishTypeCol}>{dishType}</div>
+      return (
+      
+      <div className="recipe-card-tile col-xs-6 col-sm-6 col-md-4 col-lg-3" ref={props.myRef} key={index}>
+        <div className="recipe-card" onClick={showModal}>
+          <div className="recipe-card-image" style={{backgroundImage: `url(${image})`}}>
+            <div className="recipe-card-course" style={dishTypeCol}>{dishType}</div>
+          </div>
+          <div className="recipe-card-info">
+            <h2 className="recipe-card-title">{label}</h2>
+            <p className="recipe-card-cuisine">{cuisineType}</p>
+            <p className="recipe-card-ingredients">You need {ingredients.length - props.userIngredients} ingredients</p>
+          </div>
         </div>
-        <div className="recipe-card-info">
-          <h2 className="recipe-card-title">{label}</h2>
-          <p className="recipe-card-cuisine">{cuisineType}</p>
-          <p className="recipe-card-ingredients">You need {ingredients.length - props.userIngredients} ingredients</p>
-        </div>
-      </div>
-      
-      
-      
-    </div>)
-})
+      </div>)
+  })
 
-    return (
+
+  return (
         <motion.section className="recipes"
           custom={direction} 
           variants={variants}
@@ -59,6 +92,16 @@ export default function Recipes(props) {
             </div>
             
           </div>
+
+          <RecipeModal   
+            handleExit={hideModal}  
+            data={modalData}
+
+            
+          >
+
+           
+          </RecipeModal>
         </motion.section>
           
       )

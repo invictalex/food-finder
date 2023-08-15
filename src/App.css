@@ -9,6 +9,11 @@
   src: url(assets/fonts/Aller_Bd.ttf);
 }
 
+@font-face{
+  font-family: allerItalic;
+  src: url(assets/fonts/Aller_It.ttf)
+}
+
 #root {
   font-family: aller;
   margin: 0 auto;
@@ -18,6 +23,14 @@
   --header-height: 114px;
 
   --green: #009a5c;
+}
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #f1f9f5d2 inset !important;
 }
 
 *{
@@ -438,3 +451,146 @@ button.return-ingredients .left-arrow
   text-decoration: underline;
 }
 
+
+
+/*                                                   MODAL*/
+
+.backdrop
+{
+  position: fixed;
+  z-index: 500;
+  top: 0;
+  left:0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000d6;
+}
+
+.recipe-modal{
+  position: fixed;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+  left: 50%;
+
+  z-index: 1000;
+  background-color: white;
+
+  display: flex;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 725px;
+  max-height: 500px;
+}
+
+
+.r-modal-close{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer
+}
+
+.r-modal-image{
+  background-size: cover;
+  flex: 5;
+  border-radius: 15px 0 0 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) -6px 0px 36px -28px inset;
+
+
+}
+
+
+
+
+.r-modal-info{
+  flex: 8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 20px 20px;
+  text-align: left;
+}
+
+
+.r-modal-info, .r-modal-head, .r-modal-title, .r-modal-calories, .r-modal-body, .recipe-modal h4, .r-modal-ingredients {
+  width: 100%;
+  text-align: left;
+}
+
+
+.r-modal-calories{
+  font-family: allerItalic;
+  margin-bottom: 25px;
+}
+
+.recipe-modal h4{
+  font-family: allerBold;
+}
+
+.r-modal-body{
+  height: 300px;
+  overflow: hidden;
+  overflow-y: scroll
+}
+
+.r-modal-ingredients{
+  margin-top: 15px;
+  max-width: 94%;
+  column-width: 140px;
+  font-size: 16px;
+  padding-bottom: 20px;
+
+}
+
+.r-modal-ingredients li{
+
+list-style: none;
+margin-bottom: 10px;
+}
+
+button.r-modal-button{
+  margin-top: 15px;
+  border: solid 1px var(--green);
+  border-radius: 20px;
+  background: white;
+  bottom: 20px;
+  transition: 0.3s;
+}
+
+button.r-modal-button:hover{
+  background-color: var(--green);
+  color: white;
+}
+
+@media (max-width: 625px){
+  .r-modal-info{
+    padding: 20px;
+  }
+  .r-modal-title{
+    font-size: 40px;
+  }
+  .r-modal-calories{
+    font-size: 16px;
+  }
+  .recipe-modal{
+    flex-direction: column;
+  }
+  .r-modal-image{
+    border-radius: 15px 15px 0px 0px;
+    min-height: 100px;
+  }
+
+  .recipe-modal{
+    min-height: unset;
+    max-height: 90%;
+  }
+
+  .r-modal-ingredients{
+    font-size: 25px;
+    max-height: 80%;
+    overflow: hidden;
+    overflow-y: scroll;
+    column-width: unset;
+  }
+}

@@ -14,6 +14,10 @@
   -webkit-text-size-adjust: 100%;
 }
 
+a{
+  color: #009a5c
+}
+
 
 body {
   margin: 0;
@@ -36,8 +40,6 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
-}
-button:hover {
 }
 
 @media (prefers-color-scheme: light) {

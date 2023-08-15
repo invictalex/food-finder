@@ -6,7 +6,7 @@ import Ingredients from "./Ingredients.jsx"
 import Recipes from "./Recipes.jsx"
 import './App.css'
 
-import { Routes, Route, useLocation} from "react-router-dom"
+import { Routes, Route, useLocation, Navigate } from "react-router-dom"
 import { AnimatePresence } from "framer-motion"
 
 
@@ -61,7 +61,14 @@ function App() {
     setCount(prevCount => prevCount + 1)
   }
 
-  useEffect(() => {
+  const [local, setLocal] = useState()
+
+  useEffect(() =>{
+    localStorage.setItem("stored", JSON.stringify(local))
+  }, [local])
+
+
+  useEffect(() => { 
     async function getData()
     {
       const res = await fetch(`https://api.edamam.com/search?q=${userIngredients.list.join("%20")}&app_id=a43adf9a&app_key=58027ed3fbd0a331338139572c0b20a1`)
@@ -69,12 +76,20 @@ function App() {
 
       setRecipeData(data.hits)
 
-      console.log(data.hits)
+
+      !data.hits === [] && console.log(data.hits)
+
+      if (data.hits) {setLocal(data.hits)}
+
+
     }
 
     getData()
 
-  }, [count])
+  }, [count]) 
+
+  
+  
 
   
   const handleChange = (event) => {
@@ -152,7 +167,7 @@ function App() {
           <Route path="/recipes" element={
             <Recipes
               userIngredients={hasInput}
-              data={recipeData}
+              data={recipeData ? recipeData : localStorage.getItem("stored-recipes")}
 
               direction={direction}
               variants={variants}
