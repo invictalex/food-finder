@@ -52,8 +52,8 @@ export default function Ingredients(props) {
         />
 
         <GetRecipesButton
-          handleSubmit={props.onSubmit}
           hasList={userIngredients.list.length} 
+          onSubmit={props.goForward}
 
         />
 

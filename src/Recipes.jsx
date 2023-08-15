@@ -10,16 +10,12 @@ import RecipeModal from "./RecipeModal.jsx"
 
 export default function Recipes(props) {
 
-  const [recipeData, setRecipeData] = useState([])
+  const [liveData, setliveData] = useState([])
 
-  const [stored, setStored] = useState(JSON.parse(localStorage.getItem("storedData")))
+  const [storedData, setStoredData] = useState(JSON.parse(localStorage.getItem("storedData")))
 
 
-  useEffect(() =>{
-      localStorage.setItem("storedData", JSON.stringify(stored))
-    
-
-  }, [stored])
+  useEffect(() => (localStorage.setItem("storedData", JSON.stringify(storedData))), [storedData])
 
 
 
@@ -34,12 +30,8 @@ export default function Recipes(props) {
 
         console.log("ran")
 
-        setRecipeData(data.hits)
-        setStored(data.hits)
-
-
-
-
+        setliveData(data.hits)
+        setStoredData(data.hits)
 
       }
 
@@ -75,43 +67,46 @@ export default function Recipes(props) {
   }
 
  
+  console.log(liveData)
+    const dataset = (liveData.length ? liveData : storedData)
+
+    const recipeCards = dataset.map((data, index) => {
 
 
-  const recipeCards = recipeData.map((data, index) => {
-
-
-    const {label, image, ingredients, cuisineType, dishType, ingredientLines, calories, url} = data.recipe
-
-    const dishTypeCol = {backgroundColor: dishType[0] === "starter" ? "#91ba96" : dishType[0] === "main course" ? "#173f4e" : "#756382"}
-    
-    const showModal = () => {
-        setModalData({
-          visible: true,
-          title: label,
-          image: image,
-          url: url,
-          ingredientLines: ingredientLines,
-          calories: calories,
-        })
-      }
-    
+      const {label, image, ingredients, cuisineType, dishType, ingredientLines, calories, url} = data.recipe
+  
+      const dishTypeCol = {backgroundColor: dishType[0] === "starter" ? "#91ba96" : dishType[0] === "main course" ? "#173f4e" : "#756382"}
       
-
-      return (
+      const showModal = () => {
+          setModalData({
+            visible: true,
+            title: label,
+            image: image,
+            url: url,
+            ingredientLines: ingredientLines,
+            calories: calories,
+          })
+        }
       
-      <div className="recipe-card-tile col-xs-6 col-sm-6 col-md-4 col-lg-3" ref={props.myRef} key={index}>
-        <div className="recipe-card" onClick={showModal}>
-          <div className="recipe-card-image" style={{backgroundImage: `url(${image})`}}>
-            <div className="recipe-card-course" style={dishTypeCol}>{dishType}</div>
+        
+  
+        return (
+        
+        <div className="recipe-card-tile col-xs-6 col-sm-6 col-md-4 col-lg-3" ref={props.myRef} key={index}>
+          <div className="recipe-card" onClick={showModal}>
+            <div className="recipe-card-image" style={{backgroundImage: `url(${image})`}}>
+              <div className="recipe-card-course" style={dishTypeCol}>{dishType}</div>
+            </div>
+            <div className="recipe-card-info">
+              <h2 className="recipe-card-title">{label}</h2>
+              <p className="recipe-card-cuisine">{cuisineType}</p>
+              <p className="recipe-card-ingredients">You need {ingredients.length - props.userIngredients} ingredients</p>
+            </div>
           </div>
-          <div className="recipe-card-info">
-            <h2 className="recipe-card-title">{label}</h2>
-            <p className="recipe-card-cuisine">{cuisineType}</p>
-            <p className="recipe-card-ingredients">You need {ingredients.length - props.userIngredients} ingredients</p>
-          </div>
-        </div>
-      </div>)
-  })
+        </div>)
+    })
+
+  
 
 
   return (

@@ -126,7 +126,7 @@ function App() {
               direction={direction}
               variants={variants}
               goBack={() => paginate(-1)}
-              onSubmit={() => paginate(1)}
+              goForward={() => paginate(1)}
 
             />} 
           />
