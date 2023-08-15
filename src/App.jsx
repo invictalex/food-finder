@@ -13,8 +13,10 @@ import { AnimatePresence } from "framer-motion"
 
 function App() {
   
-  
+  //                                                           Router & Animation setup
   const [direction, setPage] = useState(0)
+
+  const location = useLocation();
 
   const paginate = (newDirection) => setPage(newDirection);
 
@@ -38,27 +40,20 @@ function App() {
     transition: 0.3
   }
 
-
+  //                                                               User input State
   
 
-  const location = useLocation();
 
   const [userIngredients, setUserIngredients] = useState({
     input: "",
     list: [],
   })
 
-  const hasInput = userIngredients.list.length
+  const {input, list} = userIngredients
 
-
-
-
-
+  //                                                                 Handling State
   
-  
-
-  
-  const handleChange = (event) => {
+  const handleType = (event) => {
     
     setUserIngredients((prevIng) => ({
         ...prevIng,
@@ -67,33 +62,32 @@ function App() {
     )
   }
 
-  const handleAdd = (event) =>
+  const addIngredient = (event) =>
   {
     event.preventDefault()
 
-    userIngredients.list.includes(userIngredients.input) || userIngredients.input === "" ? 
+    list.includes(input) || input === "" ? 
     
       setUserIngredients((prevIng) => ({
         ...prevIng,
         input: "",
-      })) :
+      })) 
+      
+      :
 
       setUserIngredients((prevIng) => ({
-
         input: "",
         list: [...prevIng.list, prevIng.input]
       }))
 
   }
 
-  const removeItem = (itemToRemove) => {
+  const removeIngredient = (itemToRemove) => {
     
-      setUserIngredients((prevIng) => ({
-
-        ...prevIng,
-        list: prevIng.list.filter(item => item !== itemToRemove)     
-
-      }))
+    setUserIngredients((prevIng) => ({
+      ...prevIng,
+      list: prevIng.list.filter(item => item !== itemToRemove)     
+    }))
   }
 
   return (
@@ -103,44 +97,35 @@ function App() {
         <Routes location={location} key={location.pathname}>
           
           <Route index element={
-          <Welcome 
-            direction={direction}
-            getStarted={() => paginate(1)}
-            variants={variants}
-
-
-          />} />
+            <Welcome 
+              direction={direction}
+              variants={variants}
+              goForward={() => paginate(1)}
+              
+            />} 
+          />
           
           <Route path="/ingredients" element={
             <Ingredients 
-              data={userIngredients}
-              onChange={handleChange}
-              onAdd={handleAdd}
-              onCancel={removeItem}
-              list={userIngredients.list} 
-              
-              
-              display={hasInput}
-
-
               direction={direction}
               variants={variants}
               goBack={() => paginate(-1)}
               goForward={() => paginate(1)}
 
+              data={userIngredients}
+              onType={handleType}
+              onAdd={addIngredient}
+              onRemove={removeIngredient}
             />} 
           />
           
           <Route path="/recipes" element={
             <Recipes
-              ingList={userIngredients.list}
-              userIngredients={hasInput}
-             
-
               direction={direction}
               variants={variants}
               goBack={() => paginate(-1)}
 
+              list={list}
             />} 
           />
 
