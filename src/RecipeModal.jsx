@@ -3,6 +3,8 @@ import close from "./assets/close.svg"
 
 export default function(props){
 
+    
+
 
     const {visible, title, image, url, ingredientLines, calories} = props.data
 

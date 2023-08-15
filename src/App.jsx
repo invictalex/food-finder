@@ -50,43 +50,9 @@ function App() {
 
   const hasInput = userIngredients.list.length
 
-  const [count, setCount] = useState(0)
-
-  const [recipeData, setRecipeData] = useState([])
-
-  function getRecipes(){
-
-    paginate(1)
-
-    setCount(prevCount => prevCount + 1)
-  }
-
-  const [local, setLocal] = useState()
-
-  useEffect(() =>{
-    localStorage.setItem("stored", JSON.stringify(local))
-  }, [local])
 
 
-  useEffect(() => { 
-    async function getData()
-    {
-      const res = await fetch(`https://api.edamam.com/search?q=${userIngredients.list.join("%20")}&app_id=a43adf9a&app_key=58027ed3fbd0a331338139572c0b20a1`)
-      const data = await res.json()
 
-      setRecipeData(data.hits)
-
-
-      !data.hits === [] && console.log(data.hits)
-
-      if (data.hits) {setLocal(data.hits)}
-
-
-    }
-
-    getData()
-
-  }, [count]) 
 
   
   
@@ -153,21 +119,23 @@ function App() {
               onCancel={removeItem}
               list={userIngredients.list} 
               
+              
               display={hasInput}
 
-              onSubmit={getRecipes}
 
               direction={direction}
               variants={variants}
               goBack={() => paginate(-1)}
+              onSubmit={() => paginate(1)}
 
             />} 
           />
           
           <Route path="/recipes" element={
             <Recipes
+              ingList={userIngredients.list}
               userIngredients={hasInput}
-              data={recipeData ? recipeData : localStorage.getItem("stored-recipes")}
+             
 
               direction={direction}
               variants={variants}

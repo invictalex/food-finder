@@ -48,12 +48,11 @@ export default function Ingredients(props) {
 
         <IngredientsList
           list={userIngredients.list} 
-          onSubmit={props.onSubmit}
           onCancel={props.onCancel}
         />
 
         <GetRecipesButton
-          onSubmit={props.onSubmit}
+          handleSubmit={props.onSubmit}
           hasList={userIngredients.list.length} 
 
         />

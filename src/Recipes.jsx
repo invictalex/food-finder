@@ -10,14 +10,53 @@ import RecipeModal from "./RecipeModal.jsx"
 
 export default function Recipes(props) {
 
+  const [recipeData, setRecipeData] = useState([])
 
-  const { direction, variants, data } = props
-
-
-  const [displayData,setDisplayData] = useState((window.localStorage.getItem("stored-recipes")))
+  const [stored, setStored] = useState(JSON.parse(localStorage.getItem("storedData")))
 
 
-  console.log(displayData)
+  useEffect(() =>{
+      localStorage.setItem("storedData", JSON.stringify(stored))
+    
+
+  }, [stored])
+
+
+
+
+  useEffect(() => { 
+
+    if(props.ingList.length){
+      async function getData()
+      {
+        const res = await fetch(`https://api.edamam.com/search?q=${props.ingList.join("%20")}&app_id=a43adf9a&app_key=58027ed3fbd0a331338139572c0b20a1`)
+        const data = await res.json()
+
+        console.log("ran")
+
+        setRecipeData(data.hits)
+        setStored(data.hits)
+
+
+
+
+
+      }
+
+      getData()
+    }
+
+  }, []) 
+
+
+ 
+
+
+
+
+  const { direction, variants } = props
+
+
   
   const [modalData, setModalData] = useState({
     visible: false,
@@ -38,7 +77,8 @@ export default function Recipes(props) {
  
 
 
-  const recipeCards = data.map((data, index) => {
+  const recipeCards = recipeData.map((data, index) => {
+
 
     const {label, image, ingredients, cuisineType, dishType, ingredientLines, calories, url} = data.recipe
 

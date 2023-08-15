@@ -8,7 +8,7 @@ export default function GetRecipesButton(props)
 {
     return(
         <Link to="/recipes">
-            <button className="get-recipes" onClick={props.onSubmit} disabled={!props.hasList}>
+            <button className="get-recipes" onClick={props.handleClick} disabled={!props.hasList}>
                 
                 Recipes<img src={props.hasList ? rightArrow : rightArrowDisabled} className="right-arrow"></img>
                 
