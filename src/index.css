@@ -18,12 +18,17 @@ a{
   color: #009a5c
 }
 
+html{
+  overflow-x: hidden
+}
 
 body {
   margin: 0;
   display: flex;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
 }
 
 h1 {

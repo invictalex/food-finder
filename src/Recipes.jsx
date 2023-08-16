@@ -26,6 +26,7 @@ export default function Recipes(props) {
 
         setliveData(data.hits)
         setStoredData(data.hits)
+
       }
       getData()
 
@@ -35,12 +36,20 @@ export default function Recipes(props) {
 
   const dataToShow = (liveData.length ? liveData : storedData)
 
-  const [modalData, setModalData] = useState({visible: false})
+  const [modalData, setModalData] = useState({
+    visible: false,
+    title: "",
+    image: "",
+    url: "",
+    ingredientLines: "",
+    calories: "",})
 
   const closeModal = () => setModalData({visible: false})
 
 
-  const recipeCards = dataToShow.map((dataset, index) => {
+  const recipeCards = dataToShow.map((dataItem, index) => {
+
+    const {label, image, ingredients, cuisineType, dishType, ingredientLines, calories, url} = dataItem.recipe
 
     const setModal = () => {
       setModalData({
@@ -53,9 +62,8 @@ export default function Recipes(props) {
       })
     }
 
-    const {label, image, ingredients, cuisineType, dishType, ingredientLines, calories, url} = dataset.recipe
   
-    const courseColor = {backgroundColor: dishType[0] === "starter" ? "#91ba96" 
+    const courseColor = dishType && {backgroundColor: dishType[0] === "starter" ? "#91ba96" 
     : dishType[0] === "main course" ? "#173f4e" 
     : "#756382"}
 
@@ -91,12 +99,17 @@ export default function Recipes(props) {
       <button className="return-ingredients" onClick={props.goBack}>
         <Link to="/ingredients"><img className="left-arrow" src={leftArrow}></img></Link>
       </button>
-      
-      <div className="recipe-cards container-fluid">
-        <div className="row">
-          {recipeCards}
+      {!recipeCards.length ? (
+        <div className="error">
+          <p>Oops, it appears your search generated no results.</p>
+          <p>Go <span>back</span> and check for any spelling errors.</p>
         </div>
-      </div>
+        ) : (
+        <div className="recipe-cards container-fluid">
+          <div className="row">
+            {recipeCards}
+          </div>
+        </div>)}
 
       <RecipeModal  
         data={modalData} 

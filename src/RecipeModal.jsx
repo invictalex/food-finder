@@ -11,7 +11,7 @@ export default function(props){
     </li>))
 
     return(
-        <div className="backdrop" style={{display: visible ? "block" : "none" }} onClick={props.onClose}>
+        <div style={{display: visible ? "block" : "none" }}>
             <div className="recipe-modal" >
                 <img src={close} style={{width: "20px", height: "20px"}} className="r-modal-close" onClick={props.onClose}></img>
                 <div className="r-modal-image" style={{backgroundImage: `url(${image})`}}></div>
@@ -26,9 +26,11 @@ export default function(props){
                             {ingrListModal}
                         </ul>
                     </div>
-                    <a href={`${url}`} target="_blank"><button className="r-modal-button">Go to Recipe</button></a>
+                    <a href={`${url}`} target="_blank" className="r-modal-button">Go to Recipe</a>
                 </div>
             </div>
+        
+            <div className="backdrop"  onClick={props.onClose}></div>
         </div>
         
     )

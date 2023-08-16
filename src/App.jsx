@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import Header from "./Header.jsx"
 import Welcome from "./Welcome.jsx"
 import Ingredients from "./Ingredients.jsx"

@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import logo from "./assets/logo.svg"
+import {Link} from "react-router-dom"
 
 export default function Header(props) {
     return (
         
         <header>
-          <h1>Meal<span>Maker</span></h1>
-          <p>An app developed by <a href="https://www.github.com/invictalex">invictalex</a>.</p>
+          <Link to="/welcome"><img src={logo} alt="" className="logo"></img></Link>
+          
+          <p>An app developed by <a href="https://www.github.com/invictalex" target="_blank">invictalex</a>.</p>
         </header>
     
           
