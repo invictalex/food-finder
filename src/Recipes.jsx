@@ -11,9 +11,13 @@ export default function Recipes(props) {
 
   const [liveData, setliveData] = useState([])
 
-  const [storedData, setStoredData] = useState(JSON.parse(localStorage.getItem("storedData")))
+  const [storedData, setStoredData] = useState(JSON.parse(localStorage.getItem("locallyStoredData")))
 
-  useEffect(() => (localStorage.setItem("storedData", JSON.stringify(storedData))), [storedData])
+  useEffect(() => {
+
+    localStorage.setItem("locallyStoredData", JSON.stringify(storedData))
+
+   }, [storedData])
 
   useEffect(() => { 
 
@@ -30,11 +34,11 @@ export default function Recipes(props) {
       }
       getData()
 
-    }
+    } 
 
   }, []) 
 
-  const dataToShow = (liveData.length ? liveData : storedData)
+  
 
   const [modalData, setModalData] = useState({
     visible: false,
@@ -46,45 +50,71 @@ export default function Recipes(props) {
 
   const closeModal = () => setModalData({visible: false})
 
+  function RecipeCards(props){
 
-  const recipeCards = dataToShow.map((dataItem, index) => {
 
-    const {label, image, ingredients, cuisineType, dishType, ingredientLines, calories, url} = dataItem.recipe
+    console.log(`live data: ${JSON.stringify(liveData)}`)
+    console.log(`stored data: ${JSON.stringify(storedData)}`)
 
-    const setModal = () => {
-      setModalData({
-        visible: true,
-        title: label,
-        image: image,
-        url: url,
-        ingredientLines: ingredientLines,
-        calories: calories,
-      })
-    }
+    const recipeCards = props.data.map((dataItem, index) => {
 
+      const {label, image, ingredients, cuisineType, dishType, ingredientLines, calories, url} = dataItem.recipe
+    
+      const setModal = () => {
+        setModalData({
+          visible: true,
+          title: label,
+          image: image,
+          url: url,
+          ingredientLines: ingredientLines,
+          calories: calories,
+        })
+      }
   
-    const courseColor = dishType && {backgroundColor: dishType[0] === "starter" ? "#91ba96" 
-    : dishType[0] === "main course" ? "#173f4e" 
-    : "#756382"}
-
     
-    return (
-    
-      <div className="recipe-card-tile col-xs-6 col-sm-6 col-md-4 col-lg-3" key={index}>
-        <div className="recipe-card" onClick={setModal}>
-          <div className="recipe-card-image" style={{backgroundImage: `url(${image})`}}>
-            <div className="recipe-card-course" style={courseColor}>
-              {dishType}
+      const courseColor = dishType && {backgroundColor: dishType[0] === "starter" ? "#91ba96" 
+      : dishType[0] === "main course" ? "#173f4e" 
+      : "#756382"}
+  
+      return (
+        <div className="recipe-card-tile col-xs-6 col-sm-6 col-md-4 col-lg-3" key={index}>
+          <div className="recipe-card" onClick={setModal}>
+            <div className="recipe-card-image" style={{backgroundImage: `url(${image})`}}>
+              <div className="recipe-card-course" style={courseColor}>
+                {dishType}
+              </div>
+            </div>
+            <div className="recipe-card-info">
+              <h2 className="recipe-card-title">{label}</h2>
+              <p className="recipe-card-cuisine">{cuisineType}</p>
+              <p className="recipe-card-ingredients">You need {ingredients.length - list.length} ingredients</p>
             </div>
           </div>
-          <div className="recipe-card-info">
-            <h2 className="recipe-card-title">{label}</h2>
-            <p className="recipe-card-cuisine">{cuisineType}</p>
-            <p className="recipe-card-ingredients">You need {ingredients.length - list.length} ingredients</p>
+        </div>
+      )
+    })
+
+    const error = 
+      <motion.div className="error"
+      initial={{opacity: 0}}
+      animate={{opacity: 1}}
+      transition={{duration: 1, delay: 0.8}}
+      
+      
+      >
+        <p>Oops, it appears your search generated no results.</p>
+        <p>Go <span>back</span> and check for any spelling errors.</p>
+      </motion.div> 
+    
+    return(
+        <div className="recipe-cards container-fluid">
+          <div className="row">
+            {recipeCards.length ? recipeCards : error}
           </div>
         </div>
-      </div>)
-  })
+      
+    )
+  }
 
   return (
     <motion.section className="recipes"
@@ -99,17 +129,8 @@ export default function Recipes(props) {
       <button className="return-ingredients" onClick={props.goBack}>
         <Link to="/ingredients"><img className="left-arrow" src={leftArrow}></img></Link>
       </button>
-      {!recipeCards.length ? (
-        <div className="error">
-          <p>Oops, it appears your search generated no results.</p>
-          <p>Go <span>back</span> and check for any spelling errors.</p>
-        </div>
-        ) : (
-        <div className="recipe-cards container-fluid">
-          <div className="row">
-            {recipeCards}
-          </div>
-        </div>)}
+      
+      {list.length ? <RecipeCards data={liveData}/> : <RecipeCards data={storedData} />} 
 
       <RecipeModal  
         data={modalData} 
